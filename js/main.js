@@ -5,75 +5,12 @@ The API development board is at https://trello.com/api
 */
 
 $( document ).ready(function() {
-
-	Trello.authorize({
-	    interactive:false,
-	    success: getBoards,
-	    name: 'Trello-List'
-	});
-	updateLoggedIn();
-	
-	$("#disconnect").click(logout());	
-
-	$("#connectLink")
-	.click(function(){
-		if (Trello.authorized()){
-			displayBoards();
-		} else {
-		    Trello.authorize({
-		        type: "popup",
-		        success: getBoards(),
-		        name: 'Trello-List',
-		    })
-			
-		}
-	});
-
-});
-	
-function updateLoggedIn() {
-    var isLoggedIn = Trello.authorized();
-    if (isLoggedIn){
-    	$(".loggedIn").show();     
-    	$(".loggedOut").hide();   
-    } else {
-    	$(".loggedIn").hide();
-    	$(".loggedOut").show();
-    }
-};
-
-function onAuthorize() {
-    updateLoggedIn();
-    $("#output").empty();
-    
-    Trello.members.get("me", function(member){
-        $("#fullName").text(member.fullName);
-    
-        var $cards = $("<div>")
-            .text("Loading Cards...")
-            .appendTo("#output");
-
-        // Output a list of all of the cards that the member 
-        // is assigned to
-        Trello.get("members/me/cards", function(cards) {
-            $cards.empty();
-            $.each(cards, function(ix, card) {
-                $("<a>")
-                .attr({href: card.url, target: "trello"})
-                .addClass("card")
-                .text(card.name)
-                .appendTo($cards);
-            });  
-        });
-    });
-
-};
-
-function getBoards(){
+$('.loggedIn').hide();
+var getBoards = function (){
 	updateLoggedIn();
 	$("#boardList").empty();
 	Trello.members.get("me", function(member){
-	    $("#fullName").text(member.fullName);
+	    $(".fullName").text(member.fullName);
 	
 	    var $boardList = $('<ul class="nav nav-list">')
 	        .text("Loading Boards...")
@@ -99,7 +36,7 @@ function getBoards(){
 	});
 }
 
-function displayBoard(board){
+var displayBoard = function(board){
 	var dateString = new Date();
 	output = "<h1>"+board.name+"</h1>";
 	output += "<div><em>"+dateString.toString('dddd, MMMM ,yyyy')+"</em></div>";
@@ -123,17 +60,54 @@ function displayBoard(board){
 	$('.saveBoard').show();
 }
 
-function getDateStamp(){
+var updateLoggedIn = function() {
+    var isLoggedIn = Trello.authorized();
+    if (isLoggedIn){
+    	console.log('logged in');
+    	$(".loggedIn").show();     
+    	$(".loggedOut").hide();   
+    } else {
+    	console.log('not logged in');
+    	$(".loggedIn").hide();
+    	$(".loggedOut").show();
+    }   
+};
+
+var getDateStamp = function(){
 	var d = new Date();
 	var year = d.getFullYear();
 	var month = d.getMonth() + 1;
 	var day = d.getDate();
 	return year+'-'+month+'-'+day;
-}
-
-function logout() {
+};
+    
+var logout = function() {
     Trello.deauthorize();
     updateLoggedIn();
-    return false;
 };
-                         
+                          
+Trello.authorize({
+    interactive:false,
+    success: getBoards
+});
+
+$("#connectLink")
+.click(function(){
+    Trello.authorize({
+        type: "popup",
+        success: getBoards,
+        name: 'Trellista'
+    })
+});
+
+$("#showLink").click(function(){
+	console.log('show link clicked');
+	Trello.authorize({
+	    interactive:false,
+	    success: getBoards
+	});	
+});
+    
+$("#disconnect").click(logout);
+
+});

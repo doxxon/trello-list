@@ -21,8 +21,8 @@
         <link rel="stylesheet" href="css/main.css">
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <script src="js/vendor/jquery-1.9.0.min.js"></script>        
-        <script src="js/vendor/bootstrap.min.js"></script>
         <script src="https://api.trello.com/1/client.js?key=cfd38001a6b5e4a578ec31a59f40ab9f"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
     </head>
     <body>
@@ -36,8 +36,8 @@
             <div class="navbar-inner">
                 <div class="container">
                     <p class="loggedIn navbar-text pull-right">
-                      Logged in as <span id="fullName"></span> 
-                        <a id="disconnect" class="btn btn-primary btn-small" style="margin-top: 0">Log Out</a>
+                      Logged in to Trello as <span class="fullName"></span> 
+                        <a id="disconnect" class="btn btn-primary btn-small" style="margin-top: 0">Revoke Access</a>
                     </p>
                     <a class="brand" href="#">Trellista</a>
                     
@@ -71,7 +71,7 @@
                     </div>
                     <div id="output" style="margin-bottom: 30px">
                         <div class="hero-unit">
-                            <h1>Select board</h1>
+                            <h1>Welcome <span class="fullName"></span>, select board to view</h1>
                         </div>
                     </div>
                     <div class="saveBoard" style="display:none">
@@ -104,11 +104,9 @@
             <hr>
 
             <footer>
-                <p class="text-center">&copy; Doxxon 2013</p>
             </footer>
 
         </div> <!-- /container -->
-
 
     </body>
 </html>
