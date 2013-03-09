@@ -33,8 +33,3 @@ A php enabled web server is required if you want to save the lists as html. (or 
 ## License
  
 Trellista is open-sourced software licensed under the MIT License.
-=======
-trello-list
-===========
-
-View Trello boards in a list format. Export to HTML and open in MS-Word. Uses the Trello API and JavaScript client.
