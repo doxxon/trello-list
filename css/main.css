@@ -8,7 +8,13 @@
 .sidebar-nav {
 	padding: 3px 0;
 }
-
+.hero-unit {
+  background-color: #052f6d;
+  color: #FFFFFF;
+}
 .hero-unit h1 {
 	font-weight: normal;
+	color: #DDDDFF;
 }
+
+.center { text-align:center; }
