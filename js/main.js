@@ -46,7 +46,12 @@ var displayBoard = function(board){
 		output += "<ul>";
 		$.each(board.cards, function(i){
 			if (this.idList == idList){
-				output += "<li>"+this.name+"</li>";
+        if (this.desc) {
+  				output += "<li>"+this.name+"<p>"+marked(this.desc)+"</p></li>";
+        }
+        else {
+  				output += "<li>"+this.name+"</li>";
+        }
 			}
 		});
 		output += "</ul>";
